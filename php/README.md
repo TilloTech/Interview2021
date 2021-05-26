@@ -5,7 +5,7 @@
 
 Using the provided [orders.json](./orders.json) file, please complete the following tasks.
 
-1. Edit the answers.md file and in plain English, briefly describe how you would:
+1. Edit the [answers.md](./answers.md) file and in plain English, briefly describe how you would:
   * Count the total number of orders?
   * Count the number of orders that were FREE?
   * Count the number of orders that were placed in GBP?
