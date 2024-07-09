@@ -1,28 +1,25 @@
-import flushPromises from 'flush-promises';
+import { vi, describe, it, expect } from "vitest";
+import { shallowMount, flushPromises, mount } from "@vue/test-utils";
 
-import App from '../../src/App.vue';
+import App from "../../src/App.vue";
+import { TEST_ORDERS_SHORT } from "../data/TestOrders";
 
-global.fetch = jest.fn(() =>
-    Promise.resolve({
-        json: () => Promise.resolve([1, 2, 3]),
-    })
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    json: () => new Promise((resolve) => resolve(TEST_ORDERS_SHORT)),
+  })
 );
 
-describe('App.vue', () => {
-    it('The loading state is set to true only while fetching data', async () => {
-        const baseState = { orders: [], loading: false }
-        const testFn = App.methods.getOrders.bind(baseState)
+describe("App.vue", () => {
+  it("The loading state is set to true only while fetching data", async () => {
+    const wrapper = shallowMount(App);
 
-        expect(baseState.loading).toBe(false)
+    expect(wrapper.vm.loading).toBe(true);
 
-        testFn()
+    await flushPromises();
 
-        expect(baseState.loading).toBe(true)
+    expect(wrapper.vm.loading).toBe(false);
 
-        await flushPromises();
-
-        expect(baseState.loading).toBe(false)
-
-        expect(baseState.orders).toEqual([1, 2, 3])
-    })
-})
+    expect(wrapper.vm.orders).toEqual(TEST_ORDERS_SHORT);
+  });
+});

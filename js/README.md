@@ -1,4 +1,5 @@
 # Tillo Technical Test
+
 ## Front-end Engineer - JavaScript/Vue.js
 
 **PLEASE READ THIS DOCUMENT FULLY**
@@ -35,12 +36,12 @@ Run the automated tests to confirm you have solved the problems.
 
 ## Rules
 
-1. Don't edit **any** files in the [`tests`](./tests) folder!
+1. Don't edit **any** files in the [`tests`](./tests) folder unless instructed to!
 2. Don't spend more than an hour and a half on the technical test — if you can't fix all of the issues, don't worry about it.
 
 ## Project setup
 
-You will need NodeJS and NPM installed to be able to run this project. Both can be installed via the links on this page: https://nodejs.org/en/ (NPM is included with the NodeJS instalation). **Node version 8.9 and up is required**
+You will need NodeJS and NPM installed to be able to run this project. Both can be installed via the links on this page: https://nodejs.org/en/ (NPM is included with the NodeJS instalation). **This test is compatible with the latest LTS version of NodeJS**
 
 First, install the project dependencies:
 

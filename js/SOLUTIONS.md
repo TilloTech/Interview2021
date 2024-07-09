@@ -27,3 +27,15 @@ Your solution here
 ## 6. Tricky pagination
 
 Your solution here
+
+## 7. Money formatting
+
+Your solution here
+
+## 8. Date formatting
+
+Your solution here
+
+## 9. The Search Bar (BONUS)
+
+Your solution here
