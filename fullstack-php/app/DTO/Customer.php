@@ -15,8 +15,7 @@ readonly class Customer
         public string $city,
         public string $postcode,
         public string $country
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

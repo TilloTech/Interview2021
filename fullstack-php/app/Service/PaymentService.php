@@ -15,7 +15,7 @@ class PaymentService
     public function processPayment(PaymentDetails $paymentDetails, float $amount): PaymentResponse
     {
         try {
-            $paymentController = new PaymentController();
+            $paymentController = new PaymentController;
             $paymentRequest = new Request([
                 'card_number' => $paymentDetails->cardNumber,
                 'expiry_date' => $paymentDetails->expiryDate,

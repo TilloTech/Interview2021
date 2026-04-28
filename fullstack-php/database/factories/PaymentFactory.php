@@ -6,7 +6,7 @@ use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Payment>
+ * @extends Factory<Payment>
  */
 class PaymentFactory extends Factory
 {
@@ -26,13 +26,13 @@ class PaymentFactory extends Factory
     {
         $cardTypes = ['Visa', 'Mastercard', 'American Express', 'Discover'];
         $cardType = $this->faker->randomElement($cardTypes);
-        
+
         return [
             'card_type' => $cardType,
             'last_four_digits' => $this->faker->numerify('####'),
             'expiry_month' => $this->faker->numberBetween(1, 12),
             'expiry_year' => $this->faker->numberBetween(date('Y'), date('Y') + 10),
-            'transaction_id' => 'TXN-' . $this->faker->unique()->numerify('########'),
+            'transaction_id' => 'TXN-'.$this->faker->unique()->numerify('########'),
             'status' => 'completed',
             'amount' => $this->faker->randomFloat(2, 10, 1000),
         ];

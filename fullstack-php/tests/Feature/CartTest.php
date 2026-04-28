@@ -69,4 +69,4 @@ class CartTest extends TestCase
         $response->assertStatus(200);
         // The frontend would handle showing empty cart message
     }
-} 
+}

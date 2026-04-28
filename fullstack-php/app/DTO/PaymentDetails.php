@@ -40,15 +40,15 @@ readonly class PaymentDetails
         }
 
         // Simple validation - card number should be exactly 16 digits
-        if (!preg_match('/^\d{16}$/', $this->cardNumber)) {
+        if (! preg_match('/^\d{16}$/', $this->cardNumber)) {
             throw new InvalidArgumentException('Card number must be exactly 16 digits');
         }
 
-        if (!preg_match('/^\d{2}\/\d{2}$/', $this->expiryDate)) {
+        if (! preg_match('/^\d{2}\/\d{2}$/', $this->expiryDate)) {
             throw new InvalidArgumentException('Invalid expiry date format (MM/YY)');
         }
 
-        if (!preg_match('/^\d{3,4}$/', $this->cvv)) {
+        if (! preg_match('/^\d{3,4}$/', $this->cvv)) {
             throw new InvalidArgumentException('Invalid CVV format');
         }
     }

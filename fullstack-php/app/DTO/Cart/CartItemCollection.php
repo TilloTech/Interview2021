@@ -12,6 +12,7 @@ class CartItemCollection
     public function addItem(array $itemData): self
     {
         $this->items[] = CartItem::fromArray($itemData);
+
         return $this;
     }
 

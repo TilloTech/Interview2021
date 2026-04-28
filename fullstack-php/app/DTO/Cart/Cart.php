@@ -17,8 +17,7 @@ readonly class Cart
         public float $total,
         public ?PaymentDetails $paymentDetails = null,
         public ?Customer $customer = null
-    ) {
-    }
+    ) {}
 
     public function getItems(): CartItemCollection
     {

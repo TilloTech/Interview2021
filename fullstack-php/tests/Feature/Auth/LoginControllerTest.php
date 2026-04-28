@@ -34,12 +34,12 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
         ]);
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'password123'
+            'password' => 'password123',
         ]);
 
         $response->assertRedirect('/');
@@ -57,7 +57,7 @@ class LoginControllerTest extends TestCase
     {
         $response = $this->post('/login', [
             'email' => 'invalid-email',
-            'password' => 'password123'
+            'password' => 'password123',
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -67,12 +67,12 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
         ]);
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'wrongpassword'
+            'password' => 'wrongpassword',
         ]);
 
         $response->assertSessionHasErrors();
@@ -83,7 +83,7 @@ class LoginControllerTest extends TestCase
     {
         $response = $this->post('/login', [
             'email' => 'nonexistent@example.com',
-            'password' => 'password123'
+            'password' => 'password123',
         ]);
 
         $response->assertSessionHasErrors();
@@ -94,13 +94,13 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
         ]);
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
             'password' => 'password123',
-            'remember' => 'on'
+            'remember' => 'on',
         ]);
 
         $response->assertRedirect('/');

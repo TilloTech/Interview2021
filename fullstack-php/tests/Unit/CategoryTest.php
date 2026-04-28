@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
@@ -62,4 +62,4 @@ class CategoryTest extends TestCase
         $this->assertIsInt($category->id);
         $this->assertIsString($category->name);
     }
-} 
+}

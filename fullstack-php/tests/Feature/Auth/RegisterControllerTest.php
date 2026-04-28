@@ -36,12 +36,12 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $response->assertRedirect('/');
         $this->assertAuthenticated();
-        
+
         $user = User::where('email', 'john@example.com')->first();
         $this->assertNotNull($user);
         $this->assertEquals('John Doe', $user->name);
@@ -61,7 +61,7 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'invalid-email',
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -73,7 +73,7 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'differentpassword'
+            'password_confirmation' => 'differentpassword',
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -85,7 +85,7 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => '123',
-            'password_confirmation' => '123'
+            'password_confirmation' => '123',
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -99,7 +99,7 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -111,7 +111,7 @@ class RegisterControllerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $user = User::where('email', 'john@example.com')->first();
@@ -125,28 +125,28 @@ class RegisterControllerTest extends TestCase
             'name' => 'José María O\'Connor-Smith',
             'email' => 'jose@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $response->assertRedirect('/');
-        
+
         $user = User::where('email', 'jose@example.com')->first();
         $this->assertEquals('José María O\'Connor-Smith', $user->name);
     }
 
     public function test_it_handles_long_email_addresses()
     {
-        $longEmail = str_repeat('a', 50) . '@' . str_repeat('b', 50) . '.com';
-        
+        $longEmail = str_repeat('a', 50).'@'.str_repeat('b', 50).'.com';
+
         $response = $this->post('/register', [
             'name' => 'John Doe',
             'email' => $longEmail,
             'password' => 'password123',
-            'password_confirmation' => 'password123'
+            'password_confirmation' => 'password123',
         ]);
 
         $response->assertRedirect('/');
-        
+
         $user = User::where('email', $longEmail)->first();
         $this->assertNotNull($user);
     }

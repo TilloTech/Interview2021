@@ -12,16 +12,27 @@ class OrderConfirmation extends Mailable
     use SerializesModels;
 
     public string $orderNumber;
+
     public string $customerName;
+
     public float $orderTotal;
+
     public array $items;
+
     public string $shippingName;
+
     public string $shippingAddress;
+
     public ?string $shippingAddress2;
+
     public string $shippingCity;
+
     public string $shippingPostcode;
+
     public string $shippingCountry;
+
     public string $shippingEmail;
+
     public ?string $shippingPhone;
 
     /**
@@ -60,7 +71,7 @@ class OrderConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Confirmation - #' . $this->orderNumber)
+        return $this->subject('Order Confirmation - #'.$this->orderNumber)
             ->view('emails.order-confirmation')
             ->with([
                 'orderNumber' => $this->orderNumber,

@@ -10,8 +10,7 @@ readonly class PaymentResponse
         public bool $success,
         public string $message,
         public ?string $transactionId
-    ) {
-    }
+    ) {}
 
     public function isSuccessful(): bool
     {

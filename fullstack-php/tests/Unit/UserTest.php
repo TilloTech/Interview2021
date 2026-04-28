@@ -6,6 +6,9 @@ namespace Tests\Unit;
 
 use App\Models\Order;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,7 +45,7 @@ class UserTest extends TestCase
         $order1 = Order::factory()->create(['user_id' => $user->id]);
         $order2 = Order::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $user->orders);
+        $this->assertInstanceOf(Collection::class, $user->orders);
         $this->assertEquals(2, $user->orders->count());
         $this->assertTrue($user->orders->contains($order1));
         $this->assertTrue($user->orders->contains($order2));
@@ -61,7 +64,7 @@ class UserTest extends TestCase
         $user->email_verified_at = '2023-01-01 12:00:00';
         $user->save();
 
-        $this->assertInstanceOf(\Carbon\Carbon::class, $user->email_verified_at);
+        $this->assertInstanceOf(Carbon::class, $user->email_verified_at);
         $this->assertEquals('2023-01-01 12:00:00', $user->email_verified_at->format('Y-m-d H:i:s'));
     }
 
@@ -158,7 +161,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Foundation\Auth\User::class, $user);
-        $this->assertInstanceOf(\Illuminate\Contracts\Auth\Authenticatable::class, $user);
+        $this->assertInstanceOf(Authenticatable::class, $user);
     }
 
     #[Test]
@@ -182,4 +185,4 @@ class UserTest extends TestCase
 
         $this->assertEquals($token, $user->remember_token);
     }
-} 
+}

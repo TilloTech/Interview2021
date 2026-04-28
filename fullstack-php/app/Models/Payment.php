@@ -55,6 +55,7 @@ class Payment extends Model
     public static function getLastFourDigits(string $cardNumber): string
     {
         $cardNumber = preg_replace('/\D/', '', $cardNumber);
+
         return substr($cardNumber, -4);
     }
 }

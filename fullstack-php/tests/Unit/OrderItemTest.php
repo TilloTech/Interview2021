@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\OrderItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class OrderItemTest extends TestCase
 {
@@ -94,4 +94,4 @@ class OrderItemTest extends TestCase
 
         $this->assertGreaterThan(0, $orderItem->price);
     }
-} 
+}

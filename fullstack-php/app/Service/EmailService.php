@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Models\Order;
 use App\DTO\Cart\CartItemCollection;
-use App\Mail\OrderConfirmation;
 use App\Enum\EmailFailureType;
+use App\Mail\OrderConfirmation;
+use App\Models\Order;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
 
 class EmailService
 {
@@ -28,8 +28,8 @@ class EmailService
      * When EMAIL_ALWAYS_SUCCEED=false, the first attempt will fail,
      * subsequent attempts will succeed.
      *
-     * @param Order $order The order to send confirmation for
-     * @param CartItemCollection $cartItems The items in the order
+     * @param  Order  $order  The order to send confirmation for
+     * @param  CartItemCollection  $cartItems  The items in the order
      * @return bool True if email was sent successfully, false otherwise
      */
     public function sendOrderConfirmationEmail(Order $order, CartItemCollection $cartItems): bool
@@ -46,6 +46,7 @@ class EmailService
             return true;
         } catch (Exception $e) {
             $this->logError($order, $e->getMessage());
+
             return false;
         }
     }
@@ -75,6 +76,7 @@ class EmailService
         }
 
         $attempts = $this->getAttempts($orderNumber);
+
         return $attempts === 0;
     }
 
@@ -95,6 +97,7 @@ class EmailService
     private function getAttempts(string $orderNumber): int
     {
         $attemptKey = $this->getAttemptKey($orderNumber);
+
         return Cache::get($attemptKey, 0);
     }
 
@@ -119,7 +122,7 @@ class EmailService
             return [
                 'name' => $item['name'],
                 'quantity' => $item['quantity'],
-                'price' => $item['price']
+                'price' => $item['price'],
             ];
         }, $cartItems->toArray());
     }
@@ -128,7 +131,7 @@ class EmailService
     {
         Log::info('Order confirmation email sent successfully', [
             'order_number' => $order->order_number,
-            'recipient' => $order->shipping_email
+            'recipient' => $order->shipping_email,
         ]);
     }
 
@@ -136,7 +139,7 @@ class EmailService
     {
         Log::error('Failed to send order confirmation email', [
             'order_number' => $order->order_number,
-            'error' => $errorMessage
+            'error' => $errorMessage,
         ]);
     }
 
@@ -145,7 +148,7 @@ class EmailService
         Log::warning('Email service failed (simulated)', [
             'order_number' => $orderNumber,
             'attempt' => $attempts,
-            'error' => $errorMessage
+            'error' => $errorMessage,
         ]);
     }
 }

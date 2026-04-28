@@ -7,19 +7,19 @@ namespace Tests\Unit;
 use App\DTO\PaymentDetails;
 use App\DTO\PaymentResponse;
 use App\Service\PaymentService;
-use Exception;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PaymentServiceTest extends TestCase
 {
     private PaymentService $paymentService;
+
     private PaymentDetails $paymentDetails;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->paymentService = new PaymentService();
+        $this->paymentService = new PaymentService;
         $this->paymentDetails = new PaymentDetails(
             '1234567890123456',
             '12/25',
@@ -108,4 +108,4 @@ class PaymentServiceTest extends TestCase
         $this->assertStringStartsWith('TXN-', $result1->transactionId);
         $this->assertStringStartsWith('TXN-', $result2->transactionId);
     }
-} 
+}

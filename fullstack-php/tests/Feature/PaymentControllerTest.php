@@ -150,8 +150,8 @@ class PaymentControllerTest extends TestCase
         $endTime = microtime(true);
 
         $response->assertStatus(200);
-        
+
         // Should take at least 0.5 seconds due to usleep(500000)
         $this->assertGreaterThanOrEqual(0.5, $endTime - $startTime);
     }
-} 
+}

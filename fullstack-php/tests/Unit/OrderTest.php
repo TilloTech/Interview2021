@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class OrderTest extends TestCase
 {
@@ -15,7 +15,7 @@ class OrderTest extends TestCase
     public function test_can_create_order(): void
     {
         $user = User::factory()->create();
-        
+
         $order = Order::create([
             'order_number' => 'ORD-2025-001',
             'user_id' => $user->id,
@@ -64,7 +64,7 @@ class OrderTest extends TestCase
     public function test_order_total_calculation(): void
     {
         $user = User::factory()->create();
-        
+
         $order = Order::create([
             'order_number' => 'ORD-2025-002',
             'user_id' => $user->id,
@@ -101,7 +101,7 @@ class OrderTest extends TestCase
     public function test_order_date_formatting(): void
     {
         $order = Order::factory()->create();
-        
+
         $this->assertIsString($order->created_at->format('Y-m-d'));
         $this->assertIsString($order->updated_at->format('Y-m-d'));
     }
@@ -124,7 +124,7 @@ class OrderTest extends TestCase
     public function test_order_route_key_name(): void
     {
         $order = Order::factory()->create();
-        
+
         $this->assertEquals('order_number', $order->getRouteKeyName());
     }
-} 
+}

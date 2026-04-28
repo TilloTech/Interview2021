@@ -18,7 +18,7 @@ class ReviewTest extends TestCase
     public function it_can_create_review()
     {
         $product = Product::factory()->create();
-        
+
         $review = Review::create([
             'product_id' => $product->id,
             'author' => 'John Doe',
@@ -55,7 +55,7 @@ class ReviewTest extends TestCase
     public function it_casts_rating_to_integer()
     {
         $product = Product::factory()->create();
-        
+
         $review = Review::create([
             'product_id' => $product->id,
             'author' => 'Jane Smith',
@@ -71,7 +71,7 @@ class ReviewTest extends TestCase
     public function it_has_fillable_fields()
     {
         $product = Product::factory()->create();
-        
+
         $review = Review::create([
             'product_id' => $product->id,
             'author' => 'Test User',
@@ -105,7 +105,7 @@ class ReviewTest extends TestCase
     public function it_can_have_null_optional_fields()
     {
         $product = Product::factory()->create();
-        
+
         $review = Review::create([
             'product_id' => $product->id,
             'author' => 'Anonymous',
@@ -147,4 +147,4 @@ class ReviewTest extends TestCase
 
         $this->assertDatabaseMissing('reviews', ['id' => $reviewId]);
     }
-} 
+}

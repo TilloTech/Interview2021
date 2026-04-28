@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,7 +32,7 @@ class HomeTest extends TestCase
     {
         $category = Category::factory()->create();
         $products = Product::factory()->count(5)->create([
-            'category_id' => $category->id
+            'category_id' => $category->id,
         ]);
 
         $response = $this->get('/');
@@ -47,7 +48,7 @@ class HomeTest extends TestCase
     #[Test]
     public function it_displays_home_page_for_authenticated_user()
     {
-        $user = \App\Models\User::factory()->create();
+        $user = User::factory()->create();
         $this->actingAs($user);
 
         $response = $this->get('/');
@@ -94,4 +95,4 @@ class HomeTest extends TestCase
             ->has('products', 0)
         );
     }
-} 
+}
