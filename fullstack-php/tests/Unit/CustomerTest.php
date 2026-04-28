@@ -132,4 +132,4 @@ class CustomerTest extends TestCase
         $this->expectException(\Error::class);
         $customer->name = 'Jane Smith';
     }
-} 
+}

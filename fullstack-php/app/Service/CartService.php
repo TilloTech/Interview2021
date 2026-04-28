@@ -13,12 +13,13 @@ use App\Http\Requests\StoreOrderRequest;
 class CartService
 {
     private const TAX_RATE = 0.20;
+
     private const SHIPPING_COST = 5.99;
 
     public function createCartFromRequest(StoreOrderRequest $request): Cart
     {
         // Extract cart items from request
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         foreach ($request->input('cart_items', []) as $itemData) {
             $cartItems->addItem($itemData);
         }

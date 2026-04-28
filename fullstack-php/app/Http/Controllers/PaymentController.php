@@ -28,7 +28,7 @@ class PaymentController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Payment processed successfully',
-            'transaction_id' => 'TXN-' . strtoupper(uniqid()),
+            'transaction_id' => 'TXN-'.strtoupper(uniqid()),
             'amount' => $request->amount,
             'processed_at' => now()->toISOString(),
         ]);

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number')->unique();
-            
+
             // User relationship
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            
+
             // Payment relationship
             $table->foreignId('payment_id')->nullable()->constrained()->onDelete('set null');
-            
+
             // Shipping information
             $table->string('shipping_name');
             $table->string('shipping_email');
@@ -30,13 +30,13 @@ return new class extends Migration
             $table->string('shipping_city');
             $table->string('shipping_postcode');
             $table->string('shipping_country');
-            
+
             // Order totals
             $table->decimal('subtotal', 10, 2);
             $table->decimal('tax', 10, 2)->default(0);
             $table->decimal('shipping', 10, 2)->default(0);
             $table->decimal('total', 10, 2);
-            
+
             // Order metadata
             $table->string('payment_method')->default('card');
             $table->string('status')->default('pending');

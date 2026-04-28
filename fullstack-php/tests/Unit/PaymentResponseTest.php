@@ -59,4 +59,4 @@ class PaymentResponseTest extends TestCase
         $this->assertEquals('Error message', $response->message);
         $this->assertNull($response->transactionId);
     }
-} 
+}

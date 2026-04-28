@@ -59,7 +59,7 @@ class Order extends Model
     public static function generateOrderNumber(): string
     {
         do {
-            $orderNumber = 'ORD-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -6));
+            $orderNumber = 'ORD-'.date('Ymd').'-'.strtoupper(substr(uniqid(), -6));
         } while (static::where('order_number', $orderNumber)->exists());
 
         return $orderNumber;

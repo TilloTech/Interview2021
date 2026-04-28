@@ -239,7 +239,7 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertRedirect('/');
-        
+
         $user = User::where('email', 'john@example.com')->first();
         $this->assertNotEquals('password123', $user->password);
         $this->assertTrue(Hash::check('password123', $user->password));
@@ -256,12 +256,12 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertRedirect('/');
-        
+
         $this->assertDatabaseHas('users', [
             'name' => 'Jane Smith',
             'email' => 'jane@example.com',
         ]);
-        
+
         $user = User::where('email', 'jane@example.com')->first();
         $this->assertNull($user->email_verified_at);
     }

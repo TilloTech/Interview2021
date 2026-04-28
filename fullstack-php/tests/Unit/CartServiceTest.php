@@ -3,7 +3,9 @@
 namespace Tests\Unit;
 
 use App\DTO\Cart\Cart;
+use App\DTO\Cart\CartItem;
 use App\DTO\Cart\CartItemCollection;
+use App\DTO\Customer;
 use App\DTO\PaymentDetails;
 use App\Http\Requests\StoreOrderRequest;
 use App\Service\CartService;
@@ -31,26 +33,27 @@ class CartServiceTest extends TestCase
         // Use Request::create to simulate a POST request
         $request = StoreOrderRequest::create('/checkout', 'POST', $data);
         $request->setContainer(app());
+
         return $request;
     }
 
     #[Test]
     public function it_creates_cart_with_items()
     {
-        $cartService = new CartService();
+        $cartService = new CartService;
         $cartItemsData = [
             [
                 'id' => 1,
                 'name' => 'Test Product',
                 'price' => 10.00,
-                'quantity' => 2
+                'quantity' => 2,
             ],
             [
                 'id' => 2,
                 'name' => 'Another Product',
                 'price' => 15.00,
-                'quantity' => 1
-            ]
+                'quantity' => 1,
+            ],
         ];
         $request = $this->makeRequest($cartItemsData);
         $cart = $cartService->createCartFromRequest($request);
@@ -67,19 +70,19 @@ class CartServiceTest extends TestCase
     #[Test]
     public function it_creates_cart_with_payment_details()
     {
-        $cartService = new CartService();
+        $cartService = new CartService;
         $cartItemsData = [
             [
                 'id' => 1,
                 'name' => 'Test Product',
                 'price' => 10.00,
-                'quantity' => 1
-            ]
+                'quantity' => 1,
+            ],
         ];
         $paymentData = [
             'card_number' => '1234567890123456',
             'expiry_date' => '12/25',
-            'cvv' => '123'
+            'cvv' => '123',
         ];
         $request = $this->makeRequest($cartItemsData, $paymentData);
         $cart = $cartService->createCartFromRequest($request);
@@ -95,7 +98,7 @@ class CartServiceTest extends TestCase
     #[Test]
     public function it_creates_empty_cart()
     {
-        $cartService = new CartService();
+        $cartService = new CartService;
         $request = $this->makeRequest();
         $cart = $cartService->createCartFromRequest($request);
         $this->assertInstanceOf(Cart::class, $cart);
@@ -111,14 +114,14 @@ class CartServiceTest extends TestCase
     #[Test]
     public function it_creates_cart_with_customer_details()
     {
-        $cartService = new CartService();
+        $cartService = new CartService;
         $cartItemsData = [
             [
                 'id' => 1,
                 'name' => 'Test Product',
                 'price' => 10.00,
-                'quantity' => 1
-            ]
+                'quantity' => 1,
+            ],
         ];
         $request = $this->makeRequest($cartItemsData);
         $cart = $cartService->createCartFromRequest($request);
@@ -127,7 +130,7 @@ class CartServiceTest extends TestCase
         $this->assertTrue($cart->hasCustomer());
 
         $customer = $cart->getCustomer();
-        $this->assertInstanceOf(\App\DTO\Customer::class, $customer);
+        $this->assertInstanceOf(Customer::class, $customer);
         $this->assertEquals('John Doe', $customer->name);
         $this->assertEquals('john@example.com', $customer->email);
         $this->assertEquals('1234567890', $customer->phone);
@@ -141,14 +144,14 @@ class CartServiceTest extends TestCase
     #[Test]
     public function cart_items_add_method_works()
     {
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         $this->assertTrue($cartItems->isEmpty());
         $this->assertEquals(0, $cartItems->count());
         $cartItems->addItem([
             'id' => 1,
             'name' => 'Test Product',
             'price' => 10.00,
-            'quantity' => 2
+            'quantity' => 2,
         ]);
         $this->assertFalse($cartItems->isEmpty());
         $this->assertEquals(1, $cartItems->count());
@@ -157,7 +160,7 @@ class CartServiceTest extends TestCase
             'id' => 2,
             'name' => 'Another Product',
             'price' => 15.00,
-            'quantity' => 1
+            'quantity' => 1,
         ]);
         $this->assertEquals(2, $cartItems->count());
         $this->assertEquals(35.00, $cartItems->getSubtotal());
@@ -166,25 +169,25 @@ class CartServiceTest extends TestCase
     #[Test]
     public function cart_items_get_items_returns_array()
     {
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         $cartItems->addItem([
             'id' => 1,
             'name' => 'Test Product',
             'price' => 10.00,
-            'quantity' => 2
+            'quantity' => 2,
         ]);
         $cartItems->addItem([
             'id' => 2,
             'name' => 'Another Product',
             'price' => 15.00,
-            'quantity' => 1
+            'quantity' => 1,
         ]);
 
         $items = $cartItems->getItems();
         $this->assertIsArray($items);
         $this->assertCount(2, $items);
-        $this->assertInstanceOf(\App\DTO\Cart\CartItem::class, $items[0]);
-        $this->assertInstanceOf(\App\DTO\Cart\CartItem::class, $items[1]);
+        $this->assertInstanceOf(CartItem::class, $items[0]);
+        $this->assertInstanceOf(CartItem::class, $items[1]);
         $this->assertEquals('Test Product', $items[0]->name);
         $this->assertEquals('Another Product', $items[1]->name);
     }

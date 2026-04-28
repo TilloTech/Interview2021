@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
 {
@@ -17,7 +17,7 @@ class ProductControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Create some categories for testing with unique names
         $this->electronics = Category::factory()->create(['name' => 'Electronics']);
         $this->clothing = Category::factory()->create(['name' => 'Clothing']);
@@ -52,7 +52,7 @@ class ProductControllerTest extends TestCase
         $electronicsProduct = Product::factory()->forCategory($this->electronics)->create();
         $clothingProduct = Product::factory()->forCategory($this->clothing)->create();
 
-        $response = $this->get('/?category=' . $this->electronics->id);
+        $response = $this->get('/?category='.$this->electronics->id);
 
         $response->assertStatus(200);
         $response->assertInertia(fn (Assert $page) => $page
@@ -299,7 +299,7 @@ class ProductControllerTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        
+
         // Verify the product has the category_color computed field
         $response->assertInertia(fn (Assert $page) => $page
             ->component('Catalogue')
@@ -337,15 +337,15 @@ class ProductControllerTest extends TestCase
     {
         $electronicsProduct1 = Product::factory()->forCategory($this->electronics)->create([
             'name' => 'Gaming Laptop',
-            'price' => 100.00
+            'price' => 100.00,
         ]);
         $electronicsProduct2 = Product::factory()->forCategory($this->electronics)->create([
             'name' => 'Office Laptop',
-            'price' => 50.00
+            'price' => 50.00,
         ]);
         $clothingProduct = Product::factory()->forCategory($this->clothing)->create([
             'name' => 'Gaming Shirt',
-            'price' => 25.00
+            'price' => 25.00,
         ]);
 
         $response = $this->get("/?category={$this->electronics->id}&search=laptop&sort=price-low");
@@ -402,7 +402,7 @@ class ProductControllerTest extends TestCase
         // Create products in electronics category
         Product::factory()->count(30)->forCategory($this->electronics)->create();
 
-        $response = $this->get('/?category=' . $this->electronics->id . '&page=2');
+        $response = $this->get('/?category='.$this->electronics->id.'&page=2');
 
         $response->assertStatus(200);
         $response->assertInertia(fn (Assert $page) => $page
@@ -411,4 +411,4 @@ class ProductControllerTest extends TestCase
             ->where('pagination.current_page', 2)
         );
     }
-} 
+}

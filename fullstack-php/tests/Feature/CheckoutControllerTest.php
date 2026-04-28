@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -14,13 +15,14 @@ class CheckoutControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
-    private \App\Models\Product $product;
+
+    private Product $product;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->product = \App\Models\Product::factory()->create();
+        $this->product = Product::factory()->create();
     }
 
     private function getTestOrderData(): array
@@ -43,9 +45,9 @@ class CheckoutControllerTest extends TestCase
                     'name' => $this->product->name,
                     'price' => 29.99,
                     'quantity' => 1,
-                    'image' => 'product.jpg'
-                ]
-            ]
+                    'image' => 'product.jpg',
+                ],
+            ],
         ];
     }
 
@@ -146,7 +148,7 @@ class CheckoutControllerTest extends TestCase
                 'id' => $this->product->id,
                 'name' => $this->product->name,
                 'price' => 10,
-                'quantity' => 1
+                'quantity' => 1,
             ]],
         ]);
 
@@ -172,7 +174,7 @@ class CheckoutControllerTest extends TestCase
                 'id' => $this->product->id,
                 'name' => $this->product->name,
                 'price' => 10,
-                'quantity' => 1
+                'quantity' => 1,
             ]],
         ]);
 
@@ -198,7 +200,7 @@ class CheckoutControllerTest extends TestCase
                 'id' => $this->product->id,
                 'name' => $this->product->name,
                 'price' => 10,
-                'quantity' => 1
+                'quantity' => 1,
             ]],
         ]);
 
@@ -238,15 +240,15 @@ class CheckoutControllerTest extends TestCase
                 'name' => $this->product->name,
                 'price' => 10.00,
                 'quantity' => 2,
-                'image' => 'product1.jpg'
+                'image' => 'product1.jpg',
             ],
             [
                 'id' => $this->product->id,
                 'name' => $this->product->name,
                 'price' => 15.00,
                 'quantity' => 1,
-                'image' => 'product2.jpg'
-            ]
+                'image' => 'product2.jpg',
+            ],
         ];
 
         $response = $this->post('/checkout', $orderData);

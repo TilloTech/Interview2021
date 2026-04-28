@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\DTO\Cart\Cart;
-use App\DTO\Cart\CartItem;
 use App\DTO\Cart\CartItemCollection;
 use App\DTO\Customer;
 use App\DTO\PaymentDetails;
 use App\DTO\PaymentResponse;
 use App\Enum\PaymentMethod;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use App\Service\OrderService;
@@ -27,13 +24,15 @@ class OrderServiceTest extends TestCase
     use RefreshDatabase;
 
     private OrderService $orderService;
+
     private User $user;
+
     private Product $product;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->orderService = new OrderService();
+        $this->orderService = new OrderService;
         $this->user = User::factory()->create();
         $this->product = Product::factory()->create();
     }
@@ -103,12 +102,12 @@ class OrderServiceTest extends TestCase
     #[Test]
     public function it_throws_exception_when_cart_has_no_customer()
     {
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         $cartItems->addItem([
             'id' => $this->product->id,
             'name' => 'Test Product',
             'price' => 29.99,
-            'quantity' => 1
+            'quantity' => 1,
         ]);
 
         $cart = new Cart(
@@ -146,18 +145,18 @@ class OrderServiceTest extends TestCase
     #[Test]
     public function it_creates_order_with_multiple_items()
     {
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         $cartItems->addItem([
             'id' => $this->product->id,
             'name' => 'Product 1',
             'price' => 10.00,
-            'quantity' => 2
+            'quantity' => 2,
         ]);
         $cartItems->addItem([
             'id' => $this->product->id,
             'name' => 'Product 2',
             'price' => 15.00,
-            'quantity' => 1
+            'quantity' => 1,
         ]);
 
         $customer = new Customer(
@@ -211,12 +210,12 @@ class OrderServiceTest extends TestCase
 
     private function createValidCart(): Cart
     {
-        $cartItems = new CartItemCollection();
+        $cartItems = new CartItemCollection;
         $cartItems->addItem([
             'id' => $this->product->id,
             'name' => 'Test Product',
             'price' => 29.99,
-            'quantity' => 1
+            'quantity' => 1,
         ]);
 
         $customer = new Customer(
@@ -246,4 +245,4 @@ class OrderServiceTest extends TestCase
             $customer
         );
     }
-} 
+}

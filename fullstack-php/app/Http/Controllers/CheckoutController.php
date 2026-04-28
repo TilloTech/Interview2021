@@ -25,8 +25,7 @@ class CheckoutController extends Controller
         private readonly PaymentService $paymentService,
         private readonly EmailService $emailService,
         private readonly CartService $cartService
-    ) {
-    }
+    ) {}
 
     public function index(): Response
     {
@@ -52,8 +51,9 @@ class CheckoutController extends Controller
                 $cart->getTotal()
             );
 
-            if (!$paymentResponse->success) {
+            if (! $paymentResponse->success) {
                 $this->stopProcessingOrder($request);
+
                 return redirect()->back()->withErrors(['payment' => $paymentResponse->message]);
             }
 
@@ -71,7 +71,7 @@ class CheckoutController extends Controller
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
 
             throw $e;

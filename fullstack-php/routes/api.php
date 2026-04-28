@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Payment API
-Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process'); 
+Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process');

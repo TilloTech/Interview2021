@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ProductTest extends TestCase
     public function test_can_create_product(): void
     {
         $category = Category::factory()->create();
-        
+
         $product = Product::create([
             'name' => 'Test Product',
             'description' => 'A test product description',
@@ -106,7 +106,7 @@ class ProductTest extends TestCase
     {
         $category1 = Category::factory()->create(['name' => 'Electronics']);
         $category2 = Category::factory()->create(['name' => 'Clothing']);
-        
+
         Product::factory()->create(['category_id' => $category1->id]);
         Product::factory()->create(['category_id' => $category2->id]);
 
@@ -116,4 +116,4 @@ class ProductTest extends TestCase
         $this->assertEquals(1, $results->count());
         $this->assertEquals($category1->id, $results->first()->category_id);
     }
-} 
+}

@@ -24,7 +24,7 @@ class OrderService
             $payment = $this->createPaymentRecord($cart, $paymentResponse);
 
             $customer = $cart->getCustomer();
-            if (!$customer) {
+            if (! $customer) {
                 throw new InvalidArgumentException('Cart must contain customer information');
             }
 
@@ -57,7 +57,7 @@ class OrderService
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
 
             throw $e;
@@ -69,14 +69,14 @@ class OrderService
         $customer = $cart->getCustomer();
         $paymentDetails = $cart->getPaymentDetails();
 
-        if (!$customer || !$paymentDetails) {
+        if (! $customer || ! $paymentDetails) {
             throw new InvalidArgumentException('Cart must contain customer and payment information');
         }
 
         // Parse expiry date (MM/YY format)
         $expiryParts = explode('/', $paymentDetails->expiryDate);
         $expiryMonth = $expiryParts[0];
-        $expiryYear = '20' . $expiryParts[1];
+        $expiryYear = '20'.$expiryParts[1];
 
         return Payment::create([
             'card_type' => Payment::getCardType($paymentDetails->cardNumber),

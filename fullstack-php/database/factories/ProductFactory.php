@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends Factory<Product>
  */
 class ProductFactory extends Factory
 {
@@ -27,13 +27,13 @@ class ProductFactory extends Factory
     {
         $price = $this->faker->randomFloat(2, 10, 500);
         $hasDiscount = $this->faker->boolean(30); // 30% chance of having a discount
-        
+
         return [
             'name' => $this->faker->words(3, true),
             'description' => $this->faker->paragraph(),
             'price' => $hasDiscount ? $price * 0.8 : $price,
             'original_price' => $hasDiscount ? $price : null,
-            'image' => 'https://images.unsplash.com/photo-' . $this->faker->regexify('[0-9]{10}') . '?w=400&h=400&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-'.$this->faker->regexify('[0-9]{10}').'?w=400&h=400&fit=crop',
             'discount' => $hasDiscount ? $this->faker->numberBetween(10, 50) : null,
             'category_id' => Category::factory(),
         ];
@@ -60,4 +60,4 @@ class ProductFactory extends Factory
             'category_id' => $category->id,
         ]);
     }
-} 
+}
